@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="csl.css">
+        <title>SK Workout Tracker</title>
+        <script src="script.js" defer></script>
+   
+    </head>
+
+    <body>
+        <h1>SK Ultimate Workout Tracker</h1>
+
+        <nav>
+            
+            <a href="tracker.html">Tracker</a>
+            <a href="running.html">Run</a>
+            <a href="swimming.html">Swim</a>
+            <a href="lifting.html">Lift</a>
+        
+    </nav>
+
+        <h1>Lift</h1>
+
+        <img src="arnold2.jpg"/>
+
+        <h2>Enter A Lift</h2>
+
+        <form action = "volunteer_form.php" method="POST" onsubmit="return this.checkValidity()>
+            
+            <label for="startTime">Start Time:</label>
+            <input type="time" id="startTime" name="startTime" required><br><br>
+
+            <label for="weather">Weather:</label>
+            <input type="text" id="weather" name="weather" pattern="[A-Za-z -]{1,50}" maxlength ="50" required><br><br>
+
+            <label for="temperature">Temperature:</label>
+            <input type="temperature" id="temperature" name="temperature" maxlength ="10" required><br><br>
+
+            <label for="exercise">Exercise:</label>
+            <input type="text" id="exercise" name="exercise" pattern="[A-Za-z -]{1,50}" maxlength ="50" required><br><br>
+            
+            <label for="weight">Weight:</label>
+            <input type="number" id="weight" name="weight" required><br><br>
+
+            <label for="lb">Is the weight above in pounds?</label>
+            <input type="checkbox" id="lb" name="lb" required><br><br>
+
+            <label for="reps">Reps:</label>
+            <input type="number" id="reps" name="reps" required><br><br>
+
+            <label for="endTime">End Time:</label>
+            <input type="time" id="endTime" name="endTime" required><br><br>
+
+            <input type="submit" value="Submit">
+
+        </form>
