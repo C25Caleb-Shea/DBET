@@ -46,7 +46,7 @@ function addSet() {
   exercise.name = 'exercise';
   exercise.pattern = '[A-Za-z -]{1,50}';
   exercise.maxLength = '50';
-  exercise.required = true;
+  exercise.required = 'required';
   var eLabel = document.createElement('label');
   eLabel.innerHTML = 'Exercise: ';
   eLabel.for = 'exercise'
@@ -57,7 +57,7 @@ function addSet() {
   weight.type = 'number';
   weight.id = 'weight';
   weight.name = 'weight';
-  weight.required = true;
+  weight.required = 'required';
   var wLabel = document.createElement('label');
   wLabel.innerHTML = 'Weight: ';
   wLabel.for = 'weight'
@@ -68,7 +68,7 @@ function addSet() {
   reps.type = 'number';
   reps.id = 'reps';
   reps.name = 'reps';
-  reps.required = true;
+  reps.required = 'required';
   var rLabel = document.createElement('label');
   rLabel.innerHTML = 'Reps: ';
   rLabel.for = 'reps'

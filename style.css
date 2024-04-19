@@ -18,9 +18,21 @@ h2 {
 }
 
 p {
-    position: ;
     color: coral;
 }
+
+th {
+    color: #a4530c;
+}
+
+table.biometrics, th, td {
+    font-size: larger;
+    text-align: center;
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 5px 20px;
+}
+
 
 button.addSetButton {
     margin-bottom: 10px;
