@@ -1,34 +1,5 @@
 var setNum = 1;
 
-function addStyleSheet(properties) {
-  var head = document.getElementsByTagName('head')[0];
-
-  var link = document.createElement('link');
-  for (key in properties) {
-    link[key] = properties[key];
-  }
-
-  head.appendChild(link);
-}
-
-// add Font Awesome stylesheet for toggle button
-addStyleSheet({
-    'rel': 'stylesheet',
-    'href': 'https://use.fontawesome.com/releases/v5.7.2/css/all.css',
-    'crossorigin': 'anonymous'
-});
-
-/*<label for="exercise">Exercise:</label>
-<input type="text" id="exercise" name="exercise" pattern="[A-Za-z -]{1,50}" maxlength="50" required><br><br>
-
-<label for="weight">Weight:</label>
-<input type="number" id="weight" name="weight" required><br><br>
-
-<label for="kgs">Is the weight above in kgs?</label>
-<input type="checkbox" id="kgs" name="kgs"><br><br>
-
-<label for="reps">Reps:</label>
-<input type="number" id="reps" name="reps" required><br><br>*/
 function addSet() {
   var div = document.createElement('div');
   div.className = 'liftSet'
