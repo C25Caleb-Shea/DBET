@@ -25,9 +25,13 @@ a:hover {
     background-color: #1562b9;
 }
 
+a.logout {
+    font-size: 25px;
+}
+
 nav {
     margin-bottom: 30px;
-    font-size: large;
+    font-size: 14px;
 }
 
 h1 {

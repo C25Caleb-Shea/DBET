@@ -1,6 +1,7 @@
 <?php
+session_start();
 if (! isset($_SESSION["username"])) {
-  header("Location: index.php");
+  header("Location: index.php?redirect=".$_SERVER["PHP_SELF"]);
 }
 
 $username = "student";
@@ -33,6 +34,7 @@ $connection = new mysqli("localhost", $username, $password,
     <h1>Tracker</h1>
 
     <a href="logout.php" class="logout">LOGOUT</a>
+    <br><br>
 
     <img src="arnold.jpg"/> <!-- place holder image/ graph for user's progress-->
 
@@ -51,10 +53,10 @@ $connection = new mysqli("localhost", $username, $password,
   $statement = $connection->prepare(
       "SELECT first_name, height, weight, dob, gender ".
       "FROM User ".
-      "WHERE user_id = 2; "
+      "WHERE first_name = ?; "
   );
   // use a prepared statement to prevent SQL injection attacks
-  //$statement->bind_param("s", $_POST["fname"]);
+  $statement->bind_param("s", $_SESSION["username"]);
   $statement->execute();  // execute query
 
   // bind values of attributes in the database to PHP variables

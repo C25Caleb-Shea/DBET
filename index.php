@@ -9,10 +9,11 @@ $connection = new mysqli("localhost", "student", "CompSci364",
 $error = false;
 if (! isset($_SESSION["username"])
     && isset($_POST["username"], $_POST["password"])) {
+
   // query database for account information
   $statement = $connection->prepare("SELECT pw_h ".
                                     "FROM User ".
-                                    "WHERE user_id = ?;");
+                                    "WHERE first_name = ?;");
   $statement->bind_param("s", $_POST["username"]);
 
   $statement->execute();
@@ -20,22 +21,26 @@ if (! isset($_SESSION["username"])
 
   // username present in database
   if ($statement->fetch()) {
+  
     // verify that the password matches stored password hash
     if (password_verify($_POST["password"], $password_hash)) {
+      
       // store the username to indicate authentication
       $_SESSION["username"] = $_POST["username"];
+      
+      $location = "tracker.php";
+      if (isset($_REQUEST["redirect"])) {
+        $location = $_REQUEST["redirect"];
+      }
+
+      // redirect to requested page
+      header("Location: ".$location);
     }
   }
 
   $error = true;
 }
-
-// if the validation was sucessful, go to tracker.php
-if (isset($_SESSION["username"])) {
-  // redirect to requested page
-  header("Location: tracker.php");
-}
- ?>
+?>
 
 <!DOCTYPE html>
 
@@ -68,29 +73,34 @@ if (isset($_SESSION["username"])) {
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>SK Workout Tracker</title>   
+    <title>DBET</title>   
   </head>
 
   <body><center>
-    <h1 class="page_title">SK Ultimate Workout Tracker</h1>
+    
+    <h1 class="page_title">DBET</h1>
 
     <img src="arnold.jpg"/>
 
     <p>Track all of your workouts here! From running to swimming to lifting! See your progress!</p>
 
     <h2>Sign In</h2>
-
-    <form action="<?php echo $_SERVER["PHP_SELF"]."?".$_SERVER["QUERY_STRING"]; ?>">
+    <?php
+      if ($error) {
+        echo "Invalid username or password.";
+      }
+    ?>
+    <br><br>
+    <form action="<?php echo $_SERVER["PHP_SELF"]."?".$_SERVER["QUERY_STRING"]; ?>" method="POST">
       <label for="username">Username:</label>
-      <input type="text" id="username" name="username" pattern="[A-Za-z -]{1,50}" maxlength ="50" required><br>
+      <input type="text" id="username" name="username" pattern="[A-Za-z -]{1,50}" maxlength ="50" value="<?php if (isset($_POST["username"]))
+                            echo $_POST["username"]; ?>" required><br>
 
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" pattern="[A-Za-z -]{1,50}" maxlength ="50" required><br>
 
       <input type="submit" value="Log in">
     </form>
-
-    <br><a href="tracker.php">Temporary link to rest of website.</a>
 
   </center></body>
 </html>

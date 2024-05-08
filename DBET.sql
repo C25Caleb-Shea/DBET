@@ -82,10 +82,10 @@ CREATE TABLE Swim (
 );
 
 
-INSERT INTO User (user_id, first_name, last_name, height, weight, dob, gender)
+INSERT INTO User (user_id, pw_h, first_name, last_name, height, weight, dob, gender)
 	VALUES
-		(1, '1', 'Caleb', 'Shea', '75', '200', '2003-01-13', 'M'),
-		(2, '2', 'Miles', 'Kirk', '75', '200', '2003-01-13', 'M');
+		(1, '$2y$10$AlYlxC8b.9JZK8ZunXaXmO3kGnWLxu6Ce7pXjtFyOnqWExZidVTxa', 'Caleb', 'Shea', '75', '200', '2003-01-13', 'M'),
+		(2, '$2y$10$AlYlxC8b.9JZK8ZunXaXmO3kGnWLxu6Ce7pXjtFyOnqWExZidVTxa', 'Miles', 'Kirk', '75', '200', '2003-01-13', 'M');
 
 INSERT INTO Workout (workout_id, user_id, ts)
 	VALUES
