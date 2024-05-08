@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS  Swim;
+DROP TABLE IF EXISTS  Run;
+DROP TABLE IF EXISTS  LSet;
+DROP TABLE IF EXISTS  Lift;
+DROP TABLE IF EXISTS Workout;
+DROP TABLE IF EXISTS  User;
+
 CREATE TABLE User (
 	user_id INTEGER NOT NULL,
 	first_name CHARACTER VARYING(50) NOT NULL,
@@ -13,8 +20,7 @@ CREATE TABLE User (
 CREATE TABLE Workout (
 	workout_id INTEGER NOT NULL,
 	user_id INTEGER NOT NULL,
-	date DATE NOT NULL,
-	start_time TIME WITHOUT TIME ZONE,
+	ts TIMESTAMP,
 	weather CHARACTER VARYING(100),
 	temp_f INTEGER,
 
@@ -35,7 +41,7 @@ CREATE TABLE Lift (
 		ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-CREATE TABLE Set (
+CREATE TABLE LSet (
 	set_id INTEGER NOT NULL,
 	lift_id INTEGER NOT NULL,
 	weight INTEGER NOT NULL,
@@ -53,7 +59,7 @@ CREATE TABLE Run (
 	workout_id INTEGER NOT NULL,
 	miles DOUBLE PRECISION NOT NULL,
 	type CHARACTER VARYING(50) NOT NULL,
-	time_elapsed TIME WITHOUT TIME ZONE NOT NULL,
+	time_elapsed TIME NOT NULL,
 
 	PRIMARY KEY (run_id),
 
@@ -66,7 +72,7 @@ CREATE TABLE Swim (
 	workout_id INTEGER NOT NULL,
 	meters INTEGER NOT NULL,
 	reps INTEGER NOT NULL,
-	time_elapsed TIME WITHOUT TIME ZONE NOT NULL,
+	time_elapsed TIME NOT NULL,
 
 	PRIMARY KEY (swim_id),
 
@@ -76,49 +82,42 @@ CREATE TABLE Swim (
 
 
 INSERT INTO User (user_id, first_name, last_name)
-	VALUES (1, 'Caleb', 'Shea');
-INSERT INTO User (user_id, first_name, last_name)
-	VALUES (2, 'Miles', 'Kirk');
+	VALUES
+		(1, 'Caleb', 'Shea'),
+		(2, 'Miles', 'Kirk');
 
-INSERT INTO Workout (workout_id, user_id, date, start_time)
-	VALUES (11, 1, '2024-02-21', '12:00:00');
-INSERT INTO Workout (workout_id, user_id, date, start_time)
-	VALUES (12, 2, '2024-02-20', '13:00:00');
-INSERT INTO Workout (workout_id, user_id, date, start_time)
-	VALUES (13, 2, '20024-02-21', '14:00:00');
+INSERT INTO Workout (workout_id, user_id, ts)
+	VALUES
+		(11, 1, '2024-02-21 12:00:00'),
+		(12, 2, '2024-02-20 13:00:00'),
+		(13, 2, '2024-02-21 14:00:00');
 
 INSERT INTO Swim (swim_id, workout_id, meters, reps, time_elapsed)
-	VALUES (111, 11, 10000, 1, '03:00:00');
-INSERT INTO Swim (swim_id, workout_id, meters, reps, time_elapsed)
-	VALUES (112, 12, 500, 6, '01:00:00');
+	VALUES
+		(111, 11, 10000, 1, '03:00:00'),
+		(112, 12, 500, 6, '01:00:00');
 
 INSERT INTO Run (run_id, workout_id, miles, type, time_elapsed)
-	VALUES (121, 12, 5, 'LSD', '00:40:00');
-INSERT INTO Run (run_id, workout_id, miles, type, time_elapsed)
-	VALUES (121, 11, 2, 'Sprints', '00:30:00');
+	VALUES
+		(121, 12, 5, 'LSD', '00:40:00'),
+		(122, 11, 2, 'Sprints', '00:30:00');
 
 INSERT INTO Lift (lift_id, workout_id, exercise)
-	VALUES (131, 13, 'Barbell Rows');
-INSERT INTO Lift (lift_id, workout_id, exercise)
-	VALUES (132, 13, 'DB Curls');
-INSERT INTO Lift (lift_id, workout_id, exercise)
-	VALUES (133, 13, 'Pull-ups');
+	VALUES
+		(131, 13, 'Barbell Rows'),
+		(132, 13, 'DB Curls'),
+		(133, 13, 'Pull-ups');
 
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1111, 131, 135, 5, True);
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1112, 131, 225, 4, True);
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1113, 131, 275, 3, True);
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1114, 132, 30, 8, True);
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1115, 132, 35, 8, True);
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1116, 132, 40, 6, True);
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1117, 133, 0, 15, True);
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1118, 133, 0, 15, True);
-INSERT INTO Set (set_id, lift_id, weight, reps, in_lbs)
-	VALUES (1119, 133, 25, 10, True);
+INSERT INTO LSet (set_id, lift_id, weight, reps, in_lbs)
+	VALUES
+		(1111, 131, 135, 5, True),
+		(1112, 131, 225, 4, True),
+		(1113, 131, 275, 3, True),
+		(1114, 132, 30, 8, True),
+		(1115, 132, 35, 8, True),
+		(1116, 132, 40, 6, True),
+		(1117, 133, 0, 15, True),
+		(1118, 133, 0, 15, True),
+		(1119, 133, 25, 10, True);
+	
+

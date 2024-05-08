@@ -1,6 +1,6 @@
 <?php
 $username = "student";
-$password = "password";
+$password = "CompSci364";
 $database = "student";
 
 // connect to database
@@ -13,11 +13,11 @@ $connection = new mysqli("localhost", $username, $password,
 <!DOCTYPE html>
 <html>
   <head>
-    ...
+    <title>LIFT.PHP!!!!!!!!!!!!!!!!!!!!!!</title>
   </head>
   <body>
 <?php
-if (isset($_POST["q"])) {  // search form submitted
+if (isset($_POST["startTime"])) {  // search form submitted
   // create an HTML table to display the search results
  ?>
     <h4>Search Results</h4>
