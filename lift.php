@@ -1,62 +1,80 @@
 <?php
-$username = "student";
-$password = "CompSci364";
-$database = "student";
-
-// connect to database
-$connection = new mysqli("localhost", $username, $password,
-                         $database);
-
-
+$connection = new mysqli("localhost", "student", "CompSci364",
+                         "student");
 ?>
 
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LIFT.PHP!!!!!!!!!!!!!!!!!!!!!!</title>
+    <title>LIFT.PHP^^^^^^^^^^^^^^^^^^</title>
   </head>
   <body>
+    <nav>
+      <a href="tracker.php">Tracker</a>
+      <a href="running.php">Run</a>
+      <a href="swimming.php">Swim</a>
+      <a href="lifting.php">Lift</a>
+    </nav>
+    
+    <h1>Nice lift! Your information has been processed.</h1>
 <?php
-if (isset($_POST["startTime"])) {  // search form submitted
-  // create an HTML table to display the search results
- ?>
-    <h4>Search Results</h4>
-    <table>
-      <tr>  <!-- header -->
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Related</th>
-      </tr>  <!-- end header -->
-<?php
-  // query database to find entries that match the search string
-  $statement = $connection->prepare(
-      "SELECT id, name, description, relatedId ".
-      "FROM Example ".
-      "WHERE name LIKE ?;"
-  );  // use a prepared statement to prevent SQL injection attacks
-  $statement->bind_param("s", $_POST["q"]);  // bind user input to `?`
-  $statement->execute();  // execute query
+if (isset($_POST["startTime"])) {
 
-  // bind values of attributes in the database to PHP variables
-  $statement->bind_result($id, $name, $description, $relatedId);
-  // iterate over results
-  while ($statement->fetch()) {
-    // create a table row to display each result
- ?>
-      <tr>
-        <td><?php echo htmlspecialchars($id); ?></td>
-        <td><?php echo htmlspecialchars($name); ?></td>
-        <td><?php echo htmlspecialchars($description); ?></td>
-        <td><?php echo htmlspecialchars($relatedId); ?></td>
-      </tr>
-<?php
-  }  // end while
- ?>
-    </table>
-<?php
+  // get next workout id
+  $statement = $connection->prepare("SELECT max(workout_id) FROM Workout; ");
+  $statement->execute();
+  $statement->bind_result($w_id);
+  $statement->fetch();
+  $w_id++;
+  $statement->close();
+  $connection->next_result();
+  
+  // get next lift id
+  $statement = $connection->prepare("SELECT max(lift_id) FROM Lift; ");
+  $statement->execute();
+  $statement->bind_result($l_id);
+  $statement->fetch();
+  $l_id++;
+  $statement->close();
+  $connection->next_result();
+  
+  // get next set id
+  $statement = $connection->prepare("SELECT max(set_id) FROM LSet; ");
+  $statement->execute();
+  $statement->bind_result($s_id);
+  $statement->fetch();
+  $s_id++;
+  $statement->close();
+  $connection->next_result();
+
+  // add workout entry
+  $statement = $connection->prepare(
+      "INSERT INTO Workout (workout_id, user_id, ts) VALUES".
+        "(?, 1, ?); "
+  );
+  $statement->bind_param("is", $w_id, $_POST["endTime"]);
+  $statement->execute();
+  $statement->close();
+  $connection->next_result();
+  
+  $num_sets = 0;
+  
+  // insert a set for each field on screen
+  for ($i = 0; $i < $num_sets; $i++) {
+  
+  }
+  
+  // add lift entry
+  $statement = $connection->prepare(
+      "INSERT INTO Lift (lift_id, workout_id, exercise) VALUES".
+      	"(?, ?, ?);"
+  );
+  $statement->bind_param("iis", $r_id, $w_id, $_POST["exercise"]);
+  $statement->execute();
+
 } else {
   // TODO: Handle request without a search query
+  echo "wtf (error in lift.php)";
 }
  ?>
   </body>

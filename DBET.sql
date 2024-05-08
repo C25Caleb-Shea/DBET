@@ -7,10 +7,11 @@ DROP TABLE IF EXISTS  User;
 
 CREATE TABLE User (
 	user_id INTEGER NOT NULL,
+	pw_h CHARACTER VARYING(100) NOT NULL,
 	first_name CHARACTER VARYING(50) NOT NULL,
 	last_name CHARACTER VARYING(50),
-	height NUMERIC(2, 0),
-	weight NUMERIC(2, 0),
+	height NUMERIC(4, 0),
+	weight NUMERIC(4, 0),
 	dob DATE,
 	gender CHARACTER(1),
 
@@ -81,16 +82,16 @@ CREATE TABLE Swim (
 );
 
 
-INSERT INTO User (user_id, first_name, last_name)
+INSERT INTO User (user_id, first_name, last_name, height, weight, dob, gender)
 	VALUES
-		(1, 'Caleb', 'Shea'),
-		(2, 'Miles', 'Kirk');
+		(1, '1', 'Caleb', 'Shea', '75', '200', '2003-01-13', 'M'),
+		(2, '2', 'Miles', 'Kirk', '75', '200', '2003-01-13', 'M');
 
 INSERT INTO Workout (workout_id, user_id, ts)
 	VALUES
 		(11, 1, '2024-02-21 12:00:00'),
 		(12, 2, '2024-02-20 13:00:00'),
-		(13, 2, '2024-02-21 14:00:00');
+		(13, 1, '2024-02-21 14:00:00');
 
 INSERT INTO Swim (swim_id, workout_id, meters, reps, time_elapsed)
 	VALUES
@@ -99,8 +100,8 @@ INSERT INTO Swim (swim_id, workout_id, meters, reps, time_elapsed)
 
 INSERT INTO Run (run_id, workout_id, miles, type, time_elapsed)
 	VALUES
-		(121, 12, 5, 'LSD', '00:40:00'),
-		(122, 11, 2, 'Sprints', '00:30:00');
+		(121, 11, 5, 'LSD', '00:40:00'),
+		(122, 12, 2, 'Sprints', '00:30:00');
 
 INSERT INTO Lift (lift_id, workout_id, exercise)
 	VALUES
