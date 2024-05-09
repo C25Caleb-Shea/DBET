@@ -73,7 +73,7 @@ if (! isset($_SESSION["username"])
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>DBET</title>   
+    <title>SK Workout Tracker</title> 
   </head>
 
   <body><center>

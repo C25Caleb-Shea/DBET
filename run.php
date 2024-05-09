@@ -6,7 +6,8 @@ $connection = new mysqli("localhost", "student", "CompSci364",
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RUN.PHP!!!!!!!!!!!!!!!!!!!!!!</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>SK Workout Tracker</title>
   </head>
   <body>
     <nav>
