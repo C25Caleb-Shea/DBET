@@ -17,6 +17,11 @@ $connection = new mysqli("localhost", "student", "CompSci364",
     </nav>
     
     <h1>Nice lift! Your information has been processed.</h1>
+    
+    <?php
+      echo "<script>document.writeln(setNum);</script>";
+    ?>
+    
 <?php
 if (isset($_POST["startTime"])) {
 
@@ -36,16 +41,7 @@ if (isset($_POST["startTime"])) {
   $statement->fetch();
   $l_id++;
   $statement->close();
-  $connection->next_result();
-  
-  // get next set id
-  $statement = $connection->prepare("SELECT max(set_id) FROM LSet; ");
-  $statement->execute();
-  $statement->bind_result($s_id);
-  $statement->fetch();
-  $s_id++;
-  $statement->close();
-  $connection->next_result();
+  $connection->next_result(); 
 
   // add workout entry
   $statement = $connection->prepare(
@@ -57,21 +53,43 @@ if (isset($_POST["startTime"])) {
   $statement->close();
   $connection->next_result();
   
-  $num_sets = 0;
+  $num_lifts = 3;
+
+  // insert a lift for each field on screen
+  for ($i = 0; $i < $num_lifts; $i++) {
   
-  // insert a set for each field on screen
-  for ($i = 0; $i < $num_sets; $i++) {
+    // add lift entry
+    $statement = $connection->prepare(
+        "INSERT INTO Lift (lift_id, workout_id, exercise) VALUES".
+          "(?, ?, ?);"
+    );
+    $statement->bind_param("iis", $l_id, $w_id, $_POST["exercise"]);
+    $statement->execute();
+    
+    
+    $weight = 10 + $i;
+    $reps = 2 + $i;
   
+    // get next set id
+    $statement = $connection->prepare("SELECT max(set_id) FROM LSet; ");
+    $statement->execute();
+    $statement->bind_result($s_id);
+    $statement->fetch();
+    $s_id++;
+    $statement->close();
+    $connection->next_result();
+    
+    $statement = $connection->prepare(
+        "INSERT INTO LSet (set_id, lift_id, weight, reps, in_lbs) VALUES".
+          "(?, ?, ?, ?, True);"
+    );
+
+  $statement->bind_param("iiii", $s_id, $l_id, $weight, $reps);
+  $statement->execute();
+  $statement->close();
+  $connection->next_result();
   }
   
-  // add lift entry
-  $statement = $connection->prepare(
-      "INSERT INTO Lift (lift_id, workout_id, exercise) VALUES".
-      	"(?, ?, ?);"
-  );
-  $statement->bind_param("iis", $r_id, $w_id, $_POST["exercise"]);
-  $statement->execute();
-
 } else {
   // TODO: Handle request without a search query
   echo "wtf (error in lift.php)";

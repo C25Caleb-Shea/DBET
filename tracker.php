@@ -80,7 +80,8 @@ $connection = new mysqli("localhost", $username, $password,
     <table class="metrics">
       <tr>
         <th>Lift</th>
-        <th>PR</th>
+        <th>Weight</th>
+        <th>Reps</th>
         <th>Date</th>
       </tr>
 
@@ -92,18 +93,18 @@ $connection = new mysqli("localhost", $username, $password,
   
   // query database to find entries that match the search string
   $statement = $connection->prepare(
-      "SELECT exercise, max(weight), ts ".
-      "FROM LSet NATURAL JOIN Lift NATURAL JOIN Workout ".
-      "WHERE user_id = 1 ".
-      "GROUP BY exercise, ts ".
-      "ORDER BY ts; "
+      "SELECT a.exercise, a.weight, a.reps, a.ts ".
+      "FROM (SELECT * FROM LSet NATURAL JOIN Lift NATURAL JOIN Workout) a ".
+        "LEFT OUTER JOIN (SELECT * FROM LSet NATURAL JOIN Lift NATURAL JOIN Workout) b ".
+        "ON a.exercise = b.exercise AND a.weight < b.weight ".
+      "WHERE b.user_id IS NULL ".
+      "ORDER BY a.ts DESC; "
   );
-  // use a prepared statement to prevent SQL injection attacks
-  //$statement->bind_param("s", "1");
+  //$statement->bind_param("s", $_SESSION["username"]);
   $statement->execute();  // execute query
 
   // bind values of attributes in the database to PHP variables
-  $statement->bind_result($exercise, $weight, $ts);
+  $statement->bind_result($exercise, $weight, $reps, $ts);
   
   // create a table row to display each result
   while ($statement->fetch()) {
@@ -111,6 +112,7 @@ $connection = new mysqli("localhost", $username, $password,
       <tr>
         <td><?php echo htmlspecialchars($exercise); ?></td>
         <td><?php echo htmlspecialchars($weight); ?></td>
+        <td><?php echo htmlspecialchars($reps); ?></td>
         <td><?php echo htmlspecialchars($ts); ?></td>
       </tr>
 

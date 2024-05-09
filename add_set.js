@@ -14,7 +14,7 @@ function addSet() {
   var exercise = document.createElement('input');
   exercise.type = 'text';
   exercise.id = 'exercise';
-  exercise.name = 'exercise';
+  exercise.name = 'exercise' + setNum;
   exercise.pattern = '[A-Za-z -]{1,50}';
   exercise.maxLength = '50';
   exercise.required = 'required';
