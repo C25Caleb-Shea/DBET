@@ -78,7 +78,7 @@ if (! isset($_SESSION["username"])
 
   <body><center>
     
-    <h1 class="page_title">DBET</h1>
+    <h1 class="page_title">SK Ultimate Workout Tracker</h1>
 
     <img src="arnold.jpg"/>
 

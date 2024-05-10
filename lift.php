@@ -22,7 +22,7 @@ $connection = new mysqli("localhost", "student", "CompSci364",
     <?php
       echo "<script>document.writeln(setNum);</script>";
     ?>
-    
+
 <?php
 if (isset($_POST["startTime"])) {
 

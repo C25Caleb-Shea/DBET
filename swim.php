@@ -9,7 +9,9 @@ $connection = new mysqli("localhost", "student", "CompSci364",
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>SK Workout Tracker</title>
   </head>
-  <body>
+  <body><center>
+    <h1>SK Ultimate Workout Tracker</h1>
+
     <nav>
       <a href="tracker.php">Tracker</a>
       <a href="running.php">Run</a>
@@ -19,7 +21,7 @@ $connection = new mysqli("localhost", "student", "CompSci364",
     
     <h1>Nice swim! Your information has been processed.</h1>
 <?php
-if (isset($_POST["startTime"])) {
+if (isset($_POST["weather"])) {
 
   // get next workout id
   $statement = $connection->prepare("SELECT max(workout_id) FROM Workout; ");
@@ -30,7 +32,7 @@ if (isset($_POST["startTime"])) {
   $statement->close();
   $connection->next_result();
   
-  // get next swim id
+  // get next run id
   $statement = $connection->prepare("SELECT max(swim_id) FROM Swim; ");
   $statement->execute();
   $statement->bind_result($s_id);
@@ -44,20 +46,18 @@ if (isset($_POST["startTime"])) {
       "INSERT INTO Workout (workout_id, user_id, ts) VALUES".
         "(?, 1, ?); "
   );
-  $statement->bind_param("is", $w_id, $_POST["endTime"]);
+  $d = date("Y-m-d");
+  $statement->bind_param("is", $w_id, $d);
   $statement->execute();
   $statement->close();
   $connection->next_result();
   
-  // add swim entry
+  // add run entry
   $statement = $connection->prepare(
       "INSERT INTO Swim (swim_id, workout_id, meters, reps, time_elapsed) VALUES".
       	"(?, ?, ?, ?, ?);"
   );
-  //$statement->bind_param("sss",  $_POST["miles"], $_POST["reps"], $_POST["startTime"]);
-  $meters = 4000;
-  $reps = 2;
-  $statement->bind_param("iiiis", $s_id, $w_id, $meters, $reps, $_POST["startTime"]);
+  $statement->bind_param("iidis", $s_id, $w_id, $_POST["meters"], $_POST["reps"], $_POST["duration"]);
   $statement->execute();
 
 } else {
@@ -65,7 +65,7 @@ if (isset($_POST["startTime"])) {
   echo "wtf (error in swim.php)";
 }
  ?>
-  </body>
+  </center></body>
 </html>
 <?php
 

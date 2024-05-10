@@ -35,7 +35,9 @@ $connection = new mysqli("localhost", $username, $password,
 
     <a href="logout.php" class="logout">LOGOUT</a>
     <br><br>
-
+    <a href="delete.php" class="delete">CLEAR DATA</a>
+    <br><br>
+    
     <img src="arnold.jpg"/> <!-- place holder image/ graph for user's progress-->
 
     <p>Biometrics</p>
@@ -120,6 +122,93 @@ $connection = new mysqli("localhost", $username, $password,
   }
 ?>
     </table>
+    <br><br>
+    
+    <p>Recent Runs</p>
+    <table class="metrics">
+      <tr>
+        <th>Length (miles)</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Length (time)</th>
+      </tr>
+      
+      <?php
+
+  // reset for next query
+  $statement->close();
+  $connection->next_result();
+  
+  // query database to find entries that match the search string
+  $statement = $connection->prepare(
+      "SELECT miles, ts, type, time_elapsed ".
+      "FROM Run NATURAL JOIN Workout ".
+      "ORDER BY ts ".
+      "LIMIT 5;"
+  );
+  //$statement->bind_param("s", $_SESSION["username"]);
+  $statement->execute();  // execute query
+
+  // bind values of attributes in the database to PHP variables
+  $statement->bind_result($miles, $ts, $type, $time_elapsed);
+  
+  // create a table row to display each result
+  while ($statement->fetch()) {
+ ?>
+      <tr>
+        <td><?php echo htmlspecialchars($miles); ?></td>
+        <td><?php echo htmlspecialchars($ts); ?></td>
+        <td><?php echo htmlspecialchars($type); ?></td>
+        <td><?php echo htmlspecialchars($time_elapsed); ?></td>
+      </tr>
+
+<?php
+  }
+?>
+  </table>
+  <br><br>
+  
+  <p>Recent Swims</p>
+    <table class="metrics">
+      <tr>
+        <th>Length (miles)</th>
+        <th>Date</th>
+        <th>Reps</th>
+        <th>Duration</th>
+      </tr>
+      
+      <?php
+
+  // reset for next query
+  $statement->close();
+  $connection->next_result();
+  
+  // query database to find entries that match the search string
+  $statement = $connection->prepare(
+      "SELECT meters, ts, reps, time_elapsed ".
+      "FROM Swim NATURAL JOIN Workout ".
+      "ORDER BY ts ".
+      "LIMIT 5;"
+  );
+  $statement->execute();  // execute query
+
+  // bind values of attributes in the database to PHP variables
+  $statement->bind_result($meters, $ts, $reps, $time_elapsed);
+  
+  // create a table row to display each result
+  while ($statement->fetch()) {
+ ?>
+      <tr>
+        <td><?php echo htmlspecialchars($meters); ?></td>
+        <td><?php echo htmlspecialchars($ts); ?></td>
+        <td><?php echo htmlspecialchars($reps); ?></td>
+        <td><?php echo htmlspecialchars($time_elapsed); ?></td>
+      </tr>
+
+<?php
+  }
+?>
+  </table>
 
   </center></body>
 </html>

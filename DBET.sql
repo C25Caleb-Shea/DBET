@@ -21,7 +21,7 @@ CREATE TABLE User (
 CREATE TABLE Workout (
 	workout_id INTEGER NOT NULL,
 	user_id INTEGER NOT NULL,
-	ts TIMESTAMP,
+	ts DATE,
 	weather CHARACTER VARYING(100),
 	temp_f INTEGER,
 
@@ -92,7 +92,8 @@ INSERT INTO Workout (workout_id, user_id, ts)
 		(11, 1, '2024-04-30 10:00:00'),
 		(12, 2, '2024-02-20 13:00:00'),
 		(13, 1, '2024-02-21 14:00:00'),
-		(14, 1, '2024-04-23 14:00:00');
+		(14, 1, '2024-04-23 14:00:00'),
+		(15, 1, '2024-04-25 08:30:00');
 
 INSERT INTO Swim (swim_id, workout_id, meters, reps, time_elapsed)
 	VALUES
@@ -102,7 +103,8 @@ INSERT INTO Swim (swim_id, workout_id, meters, reps, time_elapsed)
 INSERT INTO Run (run_id, workout_id, miles, type, time_elapsed)
 	VALUES
 		(121, 12, 5, 'LSD', '00:40:00'),
-		(122, 12, 2, 'Sprints', '00:30:00');
+		(122, 12, 2, 'Sprints', '00:35:00'),
+		(123, 12, 2, 'Recovery', '00:35:00');
 
 INSERT INTO Lift (lift_id, workout_id, exercise)
 	VALUES

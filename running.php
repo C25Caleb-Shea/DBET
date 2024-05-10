@@ -31,9 +31,6 @@ if (! isset($_SESSION["username"])) {
 
     <form action = "run.php" method="POST" onsubmit="return this.checkValidity()">
         
-        <label for="startTime">Start Time:</label>
-        <input type="time" id="startTime" name="startTime" required><br><br>
-
         <label for="weather">Weather:</label>
         <input type="text" id="weather" name="weather" pattern="[A-Za-z -]{1,50}" maxlength ="50" required><br><br>
 
@@ -41,13 +38,13 @@ if (! isset($_SESSION["username"])) {
         <input type="text" id="temperature" name="temperature" maxlength ="10" required><br><br>
 
         <label for="miles">Miles Ran:</label>
-        <input type="number" id="miles" name="miles" required><br><br>
+        <input type="number" id="miles" name="miles" step=".001" required><br><br>
 
-        <label for="reps">Reps:</label>
-        <input type="number" id="reps" name="reps" required><br><br>
+        <label for="type">Type:</label>
+        <input type="text" id="type" name="type" required><br><br>
 
-        <label for="endTime">End Time:</label>
-        <input type="time" id="endTime" name="endTime" required><br><br>
+        <label for="duration">Duration:</label>
+        <input type="time" id="duration" name="duration" required><br><br>
 
         <input type="submit" value="Submit">
     </form>
