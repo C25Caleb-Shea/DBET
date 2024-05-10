@@ -11,7 +11,7 @@ if (! isset($_SESSION["username"])) {
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>SK Workout Tracker</title>
-    <script src="add_set.js" defer></script>
+    <!--<script src="add_set.js" defer></script>-->
   </head>
 
   <body><center>
@@ -30,16 +30,70 @@ if (! isset($_SESSION["username"])) {
 
     <form class="lift" action="lift.php" method="POST" onsubmit="return this.checkValidity()"">
       <!-- Lift metadata -->
-      <label for="startTime">Start Time:</label>
+      <label for="startTime" class="exercise">Start Time:</label>
       <input type="time" id="startTime" name="startTime" required>
       
-      <label for="weather">Weather:</label>
+      <label for="weather" class="exercise">Weather:</label>
       <input type="text" id="weather" name="weather" pattern="[A-Za-z -]{1,50}" maxlength="50" required>
       
-      <label for="temperature">Temperature:</label>
-      <input type="temperature" id="temperature" name="temperature" maxlength="3" required><br><br>
+      <label for="temperature" class="exercise">Temperature:</label>
+      <input type="temperature" id="temperature" name="temperature" maxlength="3" required><br><br><br>
       
-      
+      <label for="ex1" class="exercise"><strong>Exercise 1:</strong></label>
+      <input type="text" id="ex1" name="ex1" required>
+      <label for="set1" class="exercise">Sets:</label>
+      <input type="text" id="set1" name="set1" required>
+      <label for="rep1" class="exercise">Reps:</label>
+      <input type="text" id="rep1" name="rep1" required>
+      <label for="wgt1" class="exercise">Weight:</label>
+      <input type="text" id="wgt1" name="wgt1" required>
+      <label for="kgs1" class="exercise">In kgs?</label>
+      <input type="checkbox" id="kgs1" name="kgs1">
+      <br><br>
+      <label for="ex2" class="exercise"><strong>Exercise 2:</strong></label>
+      <input type="text" id="ex2" name="ex2">
+      <label for="set2" class="exercise">Sets:</label>
+      <input type="text" id="set2" name="set2">
+      <label for="rep2" class="exercise">Reps:</label>
+      <input type="text" id="rep2" name="rep2">
+      <label for="wgt2" class="exercise">Weight:</label>
+      <input type="text" id="wgt2" name="wgt2">
+      <label for="kgs2" class="exercise">In kgs?</label>
+      <input type="checkbox" id="kgs2" name="kgs2">
+      <br><br>
+      <label for="ex3" class="exercise"><strong>Exercise 3:</strong></label>
+      <input type="text" id="ex3" name="ex3">
+      <label for="set3" class="exercise">Sets:</label>
+      <input type="text" id="set3" name="set3">
+      <label for="rep3" class="exercise">Reps:</label>
+      <input type="text" id="rep3" name="rep3">
+      <label for="wgt3" class="exercise">Weight:</label>
+      <input type="text" id="wgt3" name="wgt3">
+      <label for="kgs3" class="exercise">In kgs?</label>
+      <input type="checkbox" id="kgs3" name="kgs3">
+      <br><br>
+      <label for="ex4" class="exercise"><strong>Exercise 4:</strong></label>
+      <input type="text" id="ex4" name="ex4">
+      <label for="set4" class="exercise">Sets:</label>
+      <input type="text" id="set4" name="set4">
+      <label for="rep4" class="exercise">Reps:</label>
+      <input type="text" id="rep4" name="rep4">
+      <label for="wgt4" class="exercise">Weight:</label>
+      <input type="text" id="wgt4" name="wgt4">
+      <label for="kgs4" class="exercise">In kgs?</label>
+      <input type="checkbox" id="kgs4" name="kgs4">
+      <br><br>
+      <label for="ex5" class="exercise"><strong>Exercise 5:</strong></label>
+      <input type="text" id="ex5" name="ex5">
+      <label for="set5" class="exercise">Sets:</label>
+      <input type="text" id="set5" name="set5">
+      <label for="rep5" class="exercise">Reps:</label>
+      <input type="text" id="rep5" name="rep5">
+      <label for="wgt5" class="exercise">Weight:</label>
+      <input type="text" id="wgt5" name="wgt5">
+      <label for="kgs5" class="exercise">In kgs?</label>
+      <input type="checkbox" id="kgs5" name="kgs5">
+      <br>
 
       <input class="submit" type="submit" value="Submit">
     </form>
