@@ -35,7 +35,7 @@ if (! isset($_SESSION["username"])) {
       
       <label for="weather" class="exercise">Weather:</label>
       <input type="text" id="weather" name="weather" pattern="[A-Za-z -]{1,50}" maxlength="50" required>
-      
+
       <label for="temperature" class="exercise">Temperature:</label>
       <input type="temperature" id="temperature" name="temperature" maxlength="3" required><br><br><br>
       

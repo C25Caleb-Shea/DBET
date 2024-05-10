@@ -89,11 +89,11 @@ INSERT INTO User (user_id, pw_h, first_name, last_name, height, weight, dob, gen
 
 INSERT INTO Workout (workout_id, user_id, ts)
 	VALUES
-		(11, 1, '2024-04-30 10:00:00'),
-		(12, 2, '2024-02-20 13:00:00'),
-		(13, 1, '2024-02-21 14:00:00'),
-		(14, 1, '2024-04-23 14:00:00'),
-		(15, 1, '2024-04-25 08:30:00');
+		(11, 1, '2024-04-30'),
+		(12, 2, '2024-02-20'),
+		(13, 1, '2024-02-21'),
+		(14, 1, '2024-04-23'),
+		(15, 1, '2024-04-25');
 
 INSERT INTO Swim (swim_id, workout_id, meters, reps, time_elapsed)
 	VALUES

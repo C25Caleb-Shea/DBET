@@ -35,7 +35,9 @@ $connection = new mysqli("localhost", $username, $password,
 
     <a href="logout.php" class="logout">LOGOUT</a>
     <br><br>
-    <a href="delete.php" class="delete">CLEAR DATA</a>
+    <a href="delete.php" class="delete">CLEAR ALL LIFTING DATA</a>
+    <br><br>
+    <a href="update.php" class="update">UPDATE USER DATA</a>
     <br><br>
     
     <img src="arnold.jpg"/> <!-- place holder image/ graph for user's progress-->
@@ -171,12 +173,12 @@ $connection = new mysqli("localhost", $username, $password,
   <p>Recent Swims</p>
     <table class="metrics">
       <tr>
-        <th>Length (miles)</th>
+        <th>Length (meters)</th>
         <th>Date</th>
         <th>Reps</th>
         <th>Duration</th>
       </tr>
-      
+
       <?php
 
   // reset for next query

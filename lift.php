@@ -9,7 +9,9 @@ $connection = new mysqli("localhost", "student", "CompSci364",
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>SK Workout Tracker</title>
   </head>
-  <body>
+  <body><center>
+    <h1>SK Ultimate Workout Tracker</h1>
+
     <nav>
       <a href="tracker.php">Tracker</a>
       <a href="running.php">Run</a>
@@ -18,11 +20,6 @@ $connection = new mysqli("localhost", "student", "CompSci364",
     </nav>
     
     <h1>Nice lift! Your information has been processed.</h1>
-    
-    <?php
-      echo "<script>document.writeln(setNum);</script>";
-    ?>
-
 <?php
 if (isset($_POST["startTime"])) {
 
@@ -34,42 +31,46 @@ if (isset($_POST["startTime"])) {
   $w_id++;
   $statement->close();
   $connection->next_result();
-  
-  // get next lift id
-  $statement = $connection->prepare("SELECT max(lift_id) FROM Lift; ");
-  $statement->execute();
-  $statement->bind_result($l_id);
-  $statement->fetch();
-  $l_id++;
-  $statement->close();
-  $connection->next_result(); 
 
   // add workout entry
   $statement = $connection->prepare(
       "INSERT INTO Workout (workout_id, user_id, ts) VALUES".
         "(?, 1, ?); "
   );
-  $statement->bind_param("is", $w_id, $_POST["endTime"]);
+  $d = date("Y-m-d");
+  $statement->bind_param("is", $w_id, $d);
   $statement->execute();
   $statement->close();
   $connection->next_result();
   
-  $num_lifts = 3;
+  $num_lifts = 5;
 
   // insert a lift for each field on screen
-  for ($i = 0; $i < $num_lifts; $i++) {
+  for ($i = 1; $i <= $num_lifts; $i++) {
   
+    if (!($_POST["ex".$i] && $_POST["set".$i] && $_POST["rep".$i] && $_POST["wgt".$i])) {
+      continue;
+    }
+
+    // get next lift id
+    $statement = $connection->prepare("SELECT max(lift_id) FROM Lift; ");
+    $statement->execute();
+    $statement->bind_result($l_id);
+    $statement->fetch();
+    $l_id++;
+    $statement->close();
+    $connection->next_result();
+
     // add lift entry
     $statement = $connection->prepare(
         "INSERT INTO Lift (lift_id, workout_id, exercise) VALUES".
           "(?, ?, ?);"
     );
-    $statement->bind_param("iis", $l_id, $w_id, $_POST["exercise"]);
+    $statement->bind_param("iis", $l_id, $w_id, $_POST["ex".$i]);
     $statement->execute();
     
-    
-    $weight = 10 + $i;
-    $reps = 2 + $i;
+    $weight = $_POST["wgt".$i];
+    $reps = $_POST["set".$i];
   
     // get next set id
     $statement = $connection->prepare("SELECT max(set_id) FROM LSet; ");
@@ -96,7 +97,7 @@ if (isset($_POST["startTime"])) {
   echo "wtf (error in lift.php)";
 }
  ?>
-  </body>
+  </center></body>
 </html>
 <?php
 

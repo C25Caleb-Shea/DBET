@@ -10,6 +10,8 @@ $connection = new mysqli("localhost", "student", "CompSci364",
     <title>SK Workout Tracker</title>
   </head>
   <body><center>
+    <h1>SK Ultimate Workout Tracker</h1>
+
     <nav>
       <a href="tracker.php">Tracker</a>
       <a href="running.php">Run</a>
@@ -17,12 +19,11 @@ $connection = new mysqli("localhost", "student", "CompSci364",
       <a href="lifting.php">Lift</a>
     </nav>
     
-    <h1>Cleared data.</h1>
+    <h1>Cleared all lifting data.</h1>
 <?php
   // get next workout id
   $statement = $connection->prepare("DELETE FROM LSet; ");
   $statement->execute();
-  $statement->fetch();
   $statement->close();
 
  ?>
